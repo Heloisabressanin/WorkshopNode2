@@ -193,8 +193,6 @@ input {
   color: white;
 }
 h1 {
- 
-
   margin-top: 6rem;
   display: flex;
   flex-direction: column;
@@ -248,4 +246,15 @@ h1 {
 .show.active {
   transform: scale(0);
   opacity: 0;
+}
+.btn-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: white;
+  background-color: #303030;
+  height: 20px;
+  width: 80px;
+  border-radius: 500px;
 }
