@@ -6,14 +6,7 @@ import Order from "./view/Order";
 import Products from "./view/Products";
 import Register from "./view/Register";
 
-function App() {
-/*   function handleCallback(res) {
-    console.log("Encoded JWT Id Token " + res.credential);
-    window.localStorage.getItem("token");
-    window.location.href = "http://localhost:5173/products";
-  } */
-
-  
+function App() {  
 
   return (
     <>

@@ -76,9 +76,10 @@ a {
 }
 
 #InterfacePage {
-  gap: 2rem;
+  gap: 10rem;
   height: 60vh;
   display: flex;
+  margin-top: 5rem;
   /* align-items: flex-end; */
   justify-content: center;
   align-items: center;
@@ -110,12 +111,6 @@ a {
   font-weight: 700;
 }
 
-.cardesc {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
 .price {
   font-size: 30px;
@@ -133,7 +128,6 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-transform: uppercase;
   font-size: 18px;
   font-weight: 300;
   color: white;
@@ -159,29 +153,26 @@ button:hover {
   justify-content: center;
   justify-content: flex-end;
   flex-direction: column;
-  width: 20rem;
-  height: 20rem;
+  width: 18rem;
+  height: 21rem;
   padding: 1rem;
-  opacity: 100%;
   background: black;
   border-radius: 20px;
-  position: relative;
-  left: 62%;
-  top: 42.5%;
+  position:relative;
+  left: -16%;
+  margin-top: 2rem;
 }
 
 .login-text {
-  width: 100%;
   color: white;
   border-bottom: 2px solid white;
   line-height: 30px;
-  width: 100%;
   font-weight: bolder;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 5vh;
+  padding-top: 10vh;
 }
 
 label {
@@ -216,7 +207,7 @@ h1 {
 }
 
 .login-btn {
-  width: 75%;
+  width: 100%;
   justify-content: center;
   align-items: center;
   background-color: rgb(48, 172, 251);
@@ -224,7 +215,7 @@ h1 {
   margin-top: 5px;
   border-radius: 20px;
   border: none;
-  font-size: 15pt;
+  font-size: 13pt;
   font-weight: 700;
   transition: 1s;
   outline: none;

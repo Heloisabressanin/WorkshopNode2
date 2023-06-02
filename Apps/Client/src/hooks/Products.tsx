@@ -17,7 +17,7 @@ const useProducts = () => {
 
   const handleClick = (productId: string) => {
     setSelectedProductId(productId);
-    window.location.href = "http://localhost:5173/order";
+    //window.location.href = "http://localhost:5173/order";
   };
 
   useEffect(() => {

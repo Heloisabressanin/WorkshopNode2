@@ -18,9 +18,12 @@ const Products = () => {
       <section id="InterfacePage">
         {/* Afficher les produits */}
         {products.map((product) => (
+          <div>
           <div className="cardInner" key={product._id}>
             <p className="title">{product.name}</p>
             <div className="cardesc">
+          </div>
+            
               <p className="price">{product.price}€</p>
               <p className="desc">{product.description}</p>
               <button onClick={() => handleClick(product._id)}>
@@ -30,7 +33,7 @@ const Products = () => {
             {selectedProductId === product._id && !isLoggedIn && (
               <LoginForm isShowLogin={false} onClick={handleLoginFormClick} />
             )}
-          </div>
+              </div>
         ))}
       </section>
     </>
