@@ -1,58 +1,81 @@
 const Product = require("../models/product");
 const Order = require("../models/order");
 
-// Créer un produit
-exports.createProduct = async (req, res) => {
-  try {
-    const product = new Product(req.body);
-    const savedProduct = await product.save();
-    res.status(201).json({ product: savedProduct });
-  } catch (error) {
-    res.status(400).json({ error });
-  }
+const successResponse = (
+  data,
+  status = 200,
+  message = "Success, this operation is successfully"
+) => {
+  return {
+    status,
+    message,
+    data,
+  };
+};
+const failledResponse = (
+  data,
+  status = 400,
+  message = "Sorry this operation has failled"
+) => {
+  return {
+    status,
+    message,
+    data,
+  };
 };
 
-// Obtenir un produit par son ID
-exports.getOneProduct = async (req, res) => {
+// Créer un produit
+const createProduct = async (data) => {
   try {
-    const id = req.params.id;
-    const product = await Product.findOne({ _id: id });
-    res.status(200).json({ product });
+    const product = new Product(data);
+    const savedProduct = await product.save();
+    return successResponse(savedProduct);
   } catch (error) {
-    res.status(400).json({ error });
+    return failledResponse(error);
   }
 };
 
 // Obtenir tous les produits
-exports.getAllProducts = async (req, res) => {
+const getAllProducts = async () => {
   try {
     const products = await Product.find();
-    res.status(200).json({ products });
+    return successResponse(products);
   } catch (error) {
-    res.status(400).json({ error });
+    return failledResponse(error);
   }
 };
 
-// Mettre à jour un produit
-exports.updateProduct = async (req, res) => {
+// Obtenir un produit par son ID
+const getOneProduct = async (id) => {
   try {
-    const id = req.params.id;
-    const updates = req.body;
-    const product = await Product.findByIdAndUpdate(id, updates, { new: true });
-    res.status(200).json({ product });
+    const product = await Product.findById(id);
+    return successResponse(product);
   } catch (error) {
-    res.status(400).json({ error });
+    return failledResponse(error);
+  }
+};
+
+const updateProduct = async (req) => {
+  if (!req.params.id) return false;
+  const updates = { ...req.body };
+
+  try {
+    const product = await Product.findByIdAndUpdate(req.params.id, updates, {
+      new: true,
+    });
+    return successResponse(product);
+  } catch (error) {
+    return failledResponse(error);
   }
 };
 
 // Supprimer un produit
-exports.deleteProduct = async (req, res) => {
+const deleteProduct = async (id) => {
   try {
-    const id = req.params.id;
-    await Product.findByIdAndDelete(id);
-    res.status(200).json({ message: "Product deleted successfully" });
+    const deleteProduct = await Product.findByIdAndDelete(id);
+    return successResponse(deleteProduct);
   } catch (error) {
-    res.status(500).json({ error });
+    return failledResponse(error);
   }
 };
 
@@ -71,3 +94,5 @@ exports.orderProduct = async (productId, userId, orderDate, price) => {
     console.error("Error adding order:", error);
   }
 };
+
+module.exports = {getAllProducts, getOneProduct};

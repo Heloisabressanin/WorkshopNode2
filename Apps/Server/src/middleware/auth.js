@@ -1,4 +1,7 @@
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
+require('dotenv').config();
 
 const auth = (req, res, next) => {
   try {
@@ -42,4 +45,29 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
+
+/* 
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:2021/auth/google/callback",
+      passReqToCallback: true,
+    },
+    function (request, accessToken, refreshToken, profile, done) {
+      return done(null, profile);
+    }
+  )
+);
+passport.serializeUser((user,done)=> {
+  done(null, user)
+});
+passport.deserializeUser((user,done)=>{
+  done(null,user)
+});
+
+function isLoggedIn(req, res, next) {
+  req.user? next(): res.sendStatus(401)
+} */
 module.exports = { auth, authenticateToken };

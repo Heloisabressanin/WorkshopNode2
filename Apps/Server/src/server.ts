@@ -2,6 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 
+
 dotenv.config();
 
 const port = process.env.PORT;
@@ -12,15 +13,16 @@ const routeProducts = require("./router/product.js");
 const routeUsers = require("./router/user.js");
 const routeAuth = require("./router/auth.js");
 const Order = require("./models/order.js");
-
-
-
+const passport = require('passport');
 
 server.use(cors());
 server.use(express.json());
 server.use(express.static("public"));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
+server.use(passport.initialize());
+
+
 
 server.use("/products", routeProducts);
 server.use("/users", routeUsers);
@@ -43,6 +45,14 @@ mongoose
     console.log("Connection failed");
   });
   
+/* server.use(
+  session({
+    secret: "sessionsecret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+); */
 
 server.get("/user/orders/:userId", (req, res) => {
   const userId = req.params.userId;

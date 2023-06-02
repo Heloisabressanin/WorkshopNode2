@@ -2,6 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Order = require("../models/order");
+const product = require("../models/product");
 
 
 // creer un compte user
@@ -31,13 +32,11 @@ const register = async (req, res, next) => {
   }
 };
 
-
 // se connecter
 const login = async (req, res, next) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
-    
 
     const user = await User.findOne({ email });
     if (user) {
@@ -46,7 +45,7 @@ const login = async (req, res, next) => {
         let token = jwt.sign({ email: user.email }, "AQWXCV.321", {
           expiresIn: "1h",
         });
-        return res.status(201).json({ status: "ok", data: token});
+        return res.status(201).json({ status: "ok", data: token });
       } else {
         return res
           .status(401)
@@ -63,4 +62,4 @@ const login = async (req, res, next) => {
 };
 
 
-module.exports = { register, login};
+module.exports = { register, login };

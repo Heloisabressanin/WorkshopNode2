@@ -1,36 +1,9 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import useLogin from "../hooks/Login";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    console.log(email, password);
-    axios
-      .post("http://localhost:2021/login", {
-        email,
-        password,
-      })
-      .then((res) => {
-        const data = res.data;
-        console.log(data, "userRegister");
-        if (data.status === "ok") {
-          //window.localStorage.setItem("email", data.email);
-          window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("loggedIn", "true");
-          window.location.href = "http://localhost:5173/order"
-
-        
-        }
-      })
-      .catch((error) => {
-        setError("An error occurred. Please try again.");
-      });
-  }
+  const { handleSubmit, email, setPassword, password, setEmail, error, login } =
+    useLogin();
 
   return (
     <div className="login-form">
@@ -63,6 +36,7 @@ const LoginForm = () => {
           <p>
             Vous n'avez pas de compte ? <a href="/register">Créer</a>
           </p>
+          <button onClick={() => login()}>Sign in with Google 🚀</button>
         </form>
       </div>
     </div>

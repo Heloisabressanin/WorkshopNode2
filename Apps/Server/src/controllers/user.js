@@ -1,45 +1,68 @@
 const User = require("../models/user");
+//const {successResponse, failledResponse} = require("./product")
 
+const successResponse = (
+  data,
+  status = 200,
+  message = "Success, this operation is successfully"
+) => {
+  return {
+    status,
+    message,
+    data,
+  };
+};
+const failledResponse = (
+  data,
+  status = 400,
+  message = "Sorry this operation has failled"
+) => {
+  return {
+    status,
+    message,
+    data,
+  };
+};
 // Trouver un utilisateur par son ID
-exports.getOneUser = async (req, res) => {
+const getOneUser = async (id) => {
   try {
-    const id = req.params.id;
-    const user = await User.findOne({ _id: id });
-    res.status(200).json({ user });
+    const user = await User.findById(id);
+    return successResponse(user);
   } catch (error) {
-    res.status(400).json({ error });
+    return failledResponse(error);
   }
 };
 
 // Obtenir tous les utilisateurs
-exports.getAllUsers = async (req, res) => {
+const getAllUsers = async () => {
   try {
-    const users = await User.find();
-    res.status(200).json({ users });
+    const allUsers = await User.find();
+    return successResponse(allUsers);
   } catch (error) {
-    res.status(400).json({ error });
+    return failledResponse(error);
   }
 };
 
 // Mettre à jour un utilisateur
-exports.updateUser = async (req, res) => {
+const updateUser = async (req) => {
+    if (!req.params.id) return false;
+    const updates = { ...req.body };
   try {
-    const id = req.params.id;
-    const updates = req.body;
-    const user = await User.findByIdAndUpdate(id, updates, { new: true });
-    res.status(200).json({ user });
+    const updateUser = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
+    return successResponse(updateUser);
   } catch (error) {
-    res.status(400).json({ error });
+    return failledResponse(error);
   }
 };
 
 // Supprimer un utilisateur
-exports.deleteUser = async (req, res) => {
+const deleteUser = async (id) => {
   try {
-    const id = req.params.id;
-    await User.findByIdAndDelete(id);
-    res.status(200).json({ message: "User deleted successfully" });
+    const deleteUser = await User.findByIdAndDelete(id);
+    return successResponse(deleteUser);
   } catch (error) {
     res.status(500).json({ error });
   }
 };
+
+module.exports = {getAllUsers, getOneUser}
